@@ -8,29 +8,49 @@ import logowhite from "../../assets/logo_white_sub.svg";
 const Banner = () => {
   const [cont, setCont] = useState<number>(0);
   const [srcImg, setSrcImg] = useState<string>(data[cont].url);
-
+  const [intervalID, setIntervalID] = useState<null | number>(null);
   useEffect(() => {
     setSrcImg(data[cont].url);
+    const interval = setInterval(next, 5000);
+    setIntervalID(interval);
+    return () => clearInterval(interval);
   }, [cont]);
 
-  const previous = (cont: number) => {
+  const previous = () => {
     cont === 0 ? setCont(data.length - 1) : setCont(cont - 1);
   };
 
-  const next = (cont: number) => {
+  const next = () => {
     cont === data.length - 1 ? setCont(0) : setCont(cont + 1);
   };
 
+  const cInterval = () => {
+    if (intervalID) {
+      clearInterval(intervalID);
+      setIntervalID(null);
+    }
+  };
   return (
     <div className="relative grid grid-rows-[repeat(2,37.5vh)] sm:h-[55vh] lg:h-[calc(100vh-58px)] sm:grid sm:grid-cols-[repeat(2,1fr)] sm:grid-rows-[100%] sm:gap-0">
       <div>
-        <img className="w-full h-full object-cover object-center" src={srcImg} alt="" />
+        <img
+          className="w-full h-full object-cover object-center"
+          src={srcImg}
+          alt=""
+        />
       </div>
       <div className="flex flex-row justify-between items-center absolute top-[43%] w-full">
-        <button className="p-4 text-white" onClick={() => previous(cont)}>
+        <button
+          className="p-4 text-white"
+          onClick={() => { previous(); cInterval()}}
+        >
           <ChevronLeftIcon />
         </button>
-        <button className="p-4 text-white" onClick={() => next(cont)}>
+        <button
+          className="p-4 text-white"
+          onClick={() => { next(); cInterval();
+          }}
+        >
           <ChevronRightIcon />
         </button>
       </div>
