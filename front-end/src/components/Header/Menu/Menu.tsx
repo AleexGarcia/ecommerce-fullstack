@@ -6,7 +6,7 @@ const Menu = () => {
   return (
     <>
       <MobileMenu menuItens={menuItens} />
-      <div className="hidden sm:flex sm:gap-4 sm:items-center">
+      <div className="hidden sm:flex sm:gap-4 sm:items-center lg:gap-8">
         {menuItens.map((content) => {
           return (
             <a key={content} className="text-p_white">

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "url": "assets/banner1.png",
+    "content": {
+      "title": null,
+      "paragraph": null
+    }
+  },
+  {
+    "id": "2",
+    "url": "assets/banner2.png" ,
+    "content": {
+      "title": "coleção atemporal",
+      "paragraph": "Estilo e qualidade para durar."
+    }
+  },
+  {
+    "id": "3",
+    "url": "assets/banner3.png",
+    "content": {
+      "title": "coleção atemporal",
+      "paragraph": "Alto impacto visual, baixo impacto ambiental."
+    }
+  }
+]
