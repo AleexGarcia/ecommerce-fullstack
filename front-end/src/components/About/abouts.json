@@ -1,0 +1,20 @@
+[
+  {
+    "url": "assets/about/aboutimg1.svg",
+    "alt": "ilustração do sobre",
+    "title": "pague pelo pix",
+    "content": "Ganhe 5% OFF em pagamentos via PIX"
+  },
+  {
+    "url": "assets/about/aboutimg2.svg",
+    "alt": "ilustração do sobre",
+    "title": "troca grátis",
+    "content": "Fique livre para trocar em até 30 dias."
+  },
+  {
+    "url": "assets/about/aboutimg3.svg",
+    "alt": "ilustração do sobre",
+    "title": "Sustentabilidade",
+    "content": "Moda responsável, que respeita o meio ambiente."
+  }
+]

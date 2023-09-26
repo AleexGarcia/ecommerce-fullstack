@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "url":"assets/categories/camisetas.png",
+        "content": "Camisetas",
+        "alt": "Ilustração de uma camiseta, representando a categoria"
+    },
+    {
+        "id": 2,
+        "url":"assets/categories/bolsas.png",
+        "content": "Bolsas",
+        "alt": "Ilustração de uma bolsa de couro, representando a categoria"
+    },
+    {
+        "id": 3,
+        "url":"assets/categories/calçados.png",
+        "content": "Calçados",
+        "alt": "Ilustração de um par de calçados, representando a categoria"
+    },
+    {
+        "id": 4,
+        "url":"assets/categories/calças.png",
+        "content": "Calças",
+        "alt": "Ilustração de algumas calças emplilhadas, representando a categoria"
+    },
+    {
+        "id": 5,
+        "url":"assets/categories/casacos.png",
+        "content": "Casacos",
+        "alt": "Ilustração de um casaco, representando a categoria"
+    },
+    {
+        "id": 6,
+        "url":"assets/categories/oculos.png",
+        "content": "Óculos",
+        "alt": "Ilustração de um óculos, representando a categoria"
+    }
+]

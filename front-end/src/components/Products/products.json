@@ -1,0 +1,53 @@
+[
+  {
+    "id": "1",
+    "url": "assets/products/calca_alfataria.png",
+    "alt": "Calça Alfaiataria",
+    "name": "Calça Alfaiataria",
+    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "price": 0.0
+  },
+
+  {
+    "id": "2",
+    "url": "assets/products/calca_alfataria.png",
+    "alt": "Calça Alfaiataria",
+    "name": "Calça Alfaiataria",
+    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "price": 12.0
+  },
+
+  {
+    "id": "3",
+    "url": "assets/products/calca_alfataria.png",
+    "alt": "Calça Alfaiataria",
+    "name": "Calça Alfaiataria",
+    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "price": 10.0
+  },
+
+  {
+    "id": "4",
+    "url": "assets/products/calca_alfataria.png",
+    "alt": "Calça Alfaiataria",
+    "name": "Calça Alfaiataria",
+    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "price": 14.0
+  },
+  {
+    "id": "5",
+    "url": "assets/products/calca_alfataria.png",
+    "alt": "Calça Alfaiataria",
+    "name": "Calça Alfaiataria",
+    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "price": 15.0
+  },
+  {
+    "id": "6",
+    "url": "assets/products/calca_alfataria.png",
+    "alt": "Calça Alfaiataria",
+    "name": "Calça Alfaiataria",
+    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "price": 91.0
+  }
+]

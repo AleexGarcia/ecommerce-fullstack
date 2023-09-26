@@ -34,7 +34,7 @@ const Banner = () => {
     <div className="relative grid grid-rows-[repeat(2,37.5vh)] sm:h-[55vh] lg:h-[calc(100vh-58px)] sm:grid sm:grid-cols-[repeat(2,1fr)] sm:grid-rows-[100%] sm:gap-0">
       <div>
         <img
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-top"
           src={srcImg}
           alt=""
         />
@@ -68,8 +68,8 @@ const Banner = () => {
 
       {data[cont].content.title ? (
         <div
-          className={`flex flex-col items-center justify-center text-white gap-4  ${
-            cont === 1 ? "bg-[#EE6471]" : "bg-[#F87F46] -order-1"
+          className={`flex flex-col items-center justify-center text-white gap-4 text-center ${
+            cont === 1 ? "bg-[#EE6471]" : "bg-[#F87F46] sm:-order-1"
           } `}
         >
           <h2 className="font-bold text-3xl lg:text-5xl">

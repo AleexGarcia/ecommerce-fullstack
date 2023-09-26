@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .button{
+        @apply px-4 py-2 bg-p_purple text-p_white font-semibold
+    }
+}
