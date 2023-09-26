@@ -48,14 +48,14 @@ const Banner = () => {
 
       {data[cont].content.title ? (
         <div
-          className={`flex flex-col items-center justify-center text-white  ${
+          className={`flex flex-col items-center justify-center text-white gap-4  ${
             cont === 1 ? "bg-[#EE6471]" : "bg-[#F87F46] -order-1"
           } `}
         >
-          <h2 className="font-bold text-3xl">
+          <h2 className="font-bold text-3xl lg:text-5xl">
             {data[cont].content.title?.toUpperCase()}
           </h2>
-          <p>{data[cont].content.paragraph}</p>
+          <p className="text-xl">{data[cont].content.paragraph}</p>
         </div>
       ) : (
         <div className="bg-p_purple flex flex-col items-center justify-center">
