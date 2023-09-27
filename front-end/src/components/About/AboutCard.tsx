@@ -7,7 +7,7 @@ interface IAboutCard {
 
 const AboutCard = ({url,alt,title,content}: IAboutCard) => {
     return(
-        <div className="grid grid-cols-[auto,1fr] gap-4">
+        <div className="grid grid-cols-[1fr,3fr] gap-4">
             <img src={url} alt={alt} />
             <div>
                 <span className="text-p_green text-2xl">{title.toUpperCase()}</span>
