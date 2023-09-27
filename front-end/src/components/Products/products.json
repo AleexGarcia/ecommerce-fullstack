@@ -5,49 +5,49 @@
     "alt": "Calça Alfaiataria",
     "name": "Calça Alfaiataria",
     "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
-    "price": 0.0
+    "price": 180.0
   },
 
   {
     "id": "2",
-    "url": "assets/products/calca_alfataria.png",
-    "alt": "Calça Alfaiataria",
-    "name": "Calça Alfaiataria",
-    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
-    "price": 12.0
+    "url": "assets/products/camiseta_conforto.png",
+    "alt": "Camiseta Conforto",
+    "name": "Camiseta Conforto",
+    "description": "Multicores e tamanhos. Tecido de algodão 100%, fresquinho para o verão. Modelagem unissex.",
+    "price": 70.0
   },
 
   {
     "id": "3",
-    "url": "assets/products/calca_alfataria.png",
-    "alt": "Calça Alfaiataria",
-    "name": "Calça Alfaiataria",
-    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
-    "price": 10.0
+    "url": "assets/products/tenis_chunky.png",
+    "alt": "Tênis Chunky",
+    "name": "Tênis Chunky",
+    "description": "Snicker casual com solado mais alto e modelagem robusta. Modelo unissex.",
+    "price": 250.0
   },
 
   {
     "id": "4",
-    "url": "assets/products/calca_alfataria.png",
-    "alt": "Calça Alfaiataria",
-    "name": "Calça Alfaiataria",
-    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "url": "assets/products/bolsa_coringa.png",
+    "alt": "Bolsa coringa",
+    "name": "Bolsa coringa",
+    "description": "Bolsa camel em couro sintético de alta duração. Ideal para acompanhar você por uma vida!",
     "price": 14.0
   },
   {
     "id": "5",
-    "url": "assets/products/calca_alfataria.png",
-    "alt": "Calça Alfaiataria",
-    "name": "Calça Alfaiataria",
-    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "url": "assets/products/oculos_redondo.png",
+    "alt": "Óculos Redondo",
+    "name": "Óculos Redondo",
+    "description": "Armação metálica em grafite com lentes arredondadas. Sem erro!",
     "price": 15.0
   },
   {
     "id": "6",
-    "url": "assets/products/calca_alfataria.png",
-    "alt": "Calça Alfaiataria",
-    "name": "Calça Alfaiataria",
-    "description": "Modelo Wide Leg alfaiataria em linho. Uma peça pra vida toda!",
+    "url": "assets/products/jaqueta_jeans.png",
+    "alt": "Jaqueta Jeans",
+    "name": "Jaqueta Jeans",
+    "description": "Modelo unissex oversized com gola de camurça. Atemporal e autêntica!",
     "price": 91.0
   }
 ]
