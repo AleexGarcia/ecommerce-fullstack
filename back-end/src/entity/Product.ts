@@ -1,23 +1,27 @@
+import { randomUUID } from "crypto";
+import VariantProduct from "./VariantProduct";
+import { Column, Entity, OneToMany } from "typeorm";
+import { Category } from "../enum/EnumCategory";
 
-import {randomUUID} from 'crypto';
-
+@Entity()
 export default class Product {
-    productID: string
-    category: string
-    name: string
-    description: string
-    price: number
-    size: String
-    variant: String
+  productID: string;
 
-    constructor(category: string, name: string, price: number, size: string, variant: string, description: string){
-        this.category = category;
-        this.name = name;
-        this.price = price;
-        this.size = size;
-        this.variant = variant;
-        this.description = description;
-        this.productID = randomUUID();
-    }
+  @Column({ type: 'enum', enum: Category })
+  category: Category;
+
+  name: string;
+
+  description: string;
+  
+  @OneToMany(() => VariantProduct, (variants) => variants.product)
+  variants: VariantProduct[];
+
+  constructor(category: Category, name: string, description: string){
+      this.category = category;
+      this.name = name;
+      this.description = description;
+      this.productID = randomUUID();
+  }
 
 }
