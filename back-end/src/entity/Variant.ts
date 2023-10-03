@@ -1,42 +1,36 @@
 import {
   Column,
   Entity,
-  JoinTable,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import Product from "./Product";
-import SizeQuantity from "./SizeQuantity";
 import { randomUUID } from "crypto";
+import Size from "./Size";
 
 @Entity()
-export default class VariantProduct {
+export default class Variant{
   @PrimaryGeneratedColumn("uuid")
   variantID: string;
   @Column()
   color: string;
   @Column()
-  price: number;
-  @Column()
   url: string;
   @Column()
   alt: string;
-  @ManyToOne(() => Product, (product) => product.variants)
+  @ManyToOne(() => Product, (product) => product.variants,{cascade: true})
   product: Product;
-  @OneToMany(() => SizeQuantity, (sizeAndQuantity) => sizeAndQuantity.variant)
-  @JoinTable()
-  sizesAndQuantities: SizeQuantity[];
+  @OneToMany(() => Size, size => size.size,{cascade: true})
+  sizes: Size[];
 
   constructor(
     color: string,
-    price: number,
     url: string,
     alt: string,
     product: Product
   ) {
     this.color = color;
-    this.price = price;
     this.url = url;
     this.alt = alt;
     this.product = product;

@@ -1,6 +1,8 @@
 import { EntityManager } from "typeorm";
 import { AppDataSource } from "../data-source";
 import Product from "../entity/Product";
+import VariantProduct from "../entity/Variant";
+import SizeQuantity from "../entity/Size";
 
 export default class ProductRepository {
     manager: EntityManager;
@@ -10,7 +12,7 @@ export default class ProductRepository {
     }
 
     createProduct = async(product: Product): Promise<Product> => {
-       return this.manager.create(Product, product);
+       return this.manager.save(product);
     }
 
     getInitialProducts = async (): Promise<Array<Product>> => {
@@ -43,4 +45,12 @@ export default class ProductRepository {
         .execute()
     }
    
+    addVariantProduct = async (variant: VariantProduct) => {
+        return this.manager.save(variant);
+    }
+    
+    addVariantQuantityAndSize = async (quantityAndSize: SizeQuantity) => {
+        return this.manager.save(quantityAndSize);
+    }
+
 }

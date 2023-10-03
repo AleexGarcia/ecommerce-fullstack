@@ -1,11 +1,17 @@
 import { randomUUID } from "crypto";
+import { Column, PrimaryGeneratedColumn } from "typeorm";
 
 export default class User {
   private static userCount = 0;
+  @PrimaryGeneratedColumn('uuid')
   userID: string;
+  @Column()
   name?: string;
+  @Column()
   email: string;
+  @Column()
   password: string;
+  @Column()
   isAdmin: boolean;
 
   constructor(email: string, password: string) {

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ProductService from "../services/ProductService";
+import { Category } from "../enum/EnumCategory";
 
 export default class ProductController {
   productService: ProductService;
@@ -7,18 +8,9 @@ export default class ProductController {
     this.productService = productService;
   }
   createProduct = async (request: Request, response: Response) => {
-    const { category, name, price, size, variant, description, quantity, url, alt } =
-      request.body;
+    const productReceive = request.body;
     const product = await this.productService.createProduct(
-      category,
-      name,
-      price,
-      size,
-      variant,
-      description,
-      quantity,
-      url,
-      alt
+      productReceive
     );
     if (product) return response.status(201).json(product);
     return response.status(401).json({ message: "Error" });
@@ -32,7 +24,7 @@ export default class ProductController {
 
   getProductsByCategory = async (request: Request, response: Response) => {
     const category = request.params.category;
-    const products = await this.productService.getProductsByCategory(category);
+    const products = await this.productService.getProductsByCategory(category as Category);
 
     if (!products) return response.status(400).json({ message: "not found" });
 
