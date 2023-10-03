@@ -8,9 +8,9 @@ export default class ProductController {
     this.productService = productService;
   }
   createProduct = async (request: Request, response: Response) => {
-    const productReceive = request.body;
+    const { name , category, description, price, variants } = request.body;
     const product = await this.productService.createProduct(
-      productReceive
+      name , category, description, price, variants
     );
     if (product) return response.status(201).json(product);
     return response.status(401).json({ message: "Error" });

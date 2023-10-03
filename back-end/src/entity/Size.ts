@@ -11,7 +11,7 @@ import { randomUUID } from "crypto";
 import Quantity from "./Quantity";
 import Variant from "./Variant";
 
-@Entity()
+@Entity('size')
 export default class Size {
   @PrimaryGeneratedColumn("uuid")
   sizeID: string;
@@ -23,8 +23,8 @@ export default class Size {
   @JoinColumn()
   quantity: Quantity;
 
-  @ManyToOne(() => Variant, variant => variant.sizes,{cascade: true})
-  variant: Variant;
+  @ManyToOne(() => Variant, variant => variant.sizes)
+  variant!: Variant;
 
   constructor(size: string, quantity: Quantity) {
     this.size = size;

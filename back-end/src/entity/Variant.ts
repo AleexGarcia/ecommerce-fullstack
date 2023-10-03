@@ -9,7 +9,7 @@ import Product from "./Product";
 import { randomUUID } from "crypto";
 import Size from "./Size";
 
-@Entity()
+@Entity('variant')
 export default class Variant{
   @PrimaryGeneratedColumn("uuid")
   variantID: string;
@@ -19,10 +19,10 @@ export default class Variant{
   url: string;
   @Column()
   alt: string;
-  @ManyToOne(() => Product, (product) => product.variants,{cascade: true})
+  @ManyToOne(() => Product, (product) => product.variants)
   product: Product;
   @OneToMany(() => Size, size => size.size,{cascade: true})
-  sizes: Size[];
+  sizes!: Size[];
 
   constructor(
     color: string,

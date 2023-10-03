@@ -1,18 +1,19 @@
 import { randomUUID } from "crypto";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-Entity()
+
+@Entity('quantity')
 export default class Quantity {
   @PrimaryGeneratedColumn('uuid')
   quantityID: string;
   
   @Column()
-  quantity: number;
+  value: number;
 
   constructor(
-    quantity: number,
+    value: number,
   ) {
-    this.quantity = quantity;
+    this.value = value;
     this.quantityID = randomUUID();
   }
 }

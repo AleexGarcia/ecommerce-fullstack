@@ -1,11 +1,11 @@
 import { randomUUID } from "crypto";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "../enum/EnumCategory";
 import Variant from "./Variant";
 
-@Entity()
+@Entity('product')
 export default class Product {
-  @Column()
+  @PrimaryGeneratedColumn('uuid')
   productID: string;
 
   @Column({ type: "enum", enum: Category })
@@ -21,7 +21,7 @@ export default class Product {
   price: number
 
   @OneToMany(() => Variant, (variants) => variants.product,{cascade: true})
-  variants: Variant[];
+  variants!: Variant[];
 
   constructor(category: Category, name: string, description: string, price: number) {
     this.category = category;

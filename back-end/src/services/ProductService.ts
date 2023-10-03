@@ -1,7 +1,6 @@
 import Product from "../entity/Product";
 import Quantity from "../entity/Quantity";
 import Size from "../entity/Size";
-import SizeQuantity from "../entity/Size";
 import Variant from "../entity/Variant";
 import { Category } from "../enum/EnumCategory";
 import ProductRepository from "../repositories/ProductRepository";
@@ -12,8 +11,8 @@ export default class ProductService {
     this.productRepository = productRepository;
   }
 
-  createProduct = async (productReceive: Partial<Product>) => {
-    const { name, category, description, price, variants } = productReceive;
+  createProduct = async (name: string , category: Category, description: string, price: number, variants: Variant[]) => {
+  
     const product = new Product(category, name, description, price);
     const arrVarients: Variant[] = [];
     for (const iterator of variants) {
@@ -22,7 +21,7 @@ export default class ProductService {
       const arrSizes: Size[] = [];
       for (const i of sizes) {
         const { quantity, size } = i;
-        arrSizes.push(new Size(size, new Quantity(quantity.quantity)));
+        arrSizes.push(new Size(size, new Quantity(quantity.value)));
       }
       variant.sizes = arrSizes;
       arrVarients.push(variant);
@@ -30,7 +29,25 @@ export default class ProductService {
     product.variants = arrVarients;
     return this.productRepository.createProduct(product);
   };
-
+  // {
+  //   name:'',
+  //   category:'',
+  //   description:'',
+  //   price:'',
+  //   variants: [
+  //     {
+  //       color:""
+  //       url:""
+  //       alt:""
+  //       sizes:[
+  //         quatity:{
+  //           quantity:""
+  //         }
+  //         size:""
+  //       ]
+  //     }
+  //   ]
+  // }
   getInitialProducts = async () => {
     return this.productRepository.getInitialProducts();
   };

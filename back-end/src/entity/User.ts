@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { Column, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+@Entity('user')
 export default class User {
   private static userCount = 0;
   @PrimaryGeneratedColumn('uuid')
