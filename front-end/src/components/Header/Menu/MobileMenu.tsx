@@ -1,9 +1,13 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import Close from "@mui/icons-material/Close";
 import { useState } from "react";
-
+import {Link} from 'react-router-dom'
 interface ImenuMobile {
-  menuItens: Array<string>;
+  menuItens: Array<iLink>;
+}
+interface iLink {
+  link: string,
+  name: string
 }
 
 const mobileMenu = ({ menuItens }: ImenuMobile) => {
@@ -29,9 +33,9 @@ const mobileMenu = ({ menuItens }: ImenuMobile) => {
           <nav className="flex flex-col">
             {menuItens.map((content) => {
               return (
-                <a className="py-1 no-underline border-b-[1px] last:border-b-0">
-                  {content}
-                </a>
+                <Link key={content.name} to={content.link} className="py-1 no-underline border-b-[1px] last:border-b-0">
+                  {content.name}
+                </Link>
               );
             })}
           </nav>

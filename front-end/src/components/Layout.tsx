@@ -8,11 +8,11 @@ interface Layout {
 
 const Layout = ({ children }: Layout) => {
   return (
-    <>
+    <div className="flex flex-col justify-between min-h-[100vh]">
       <Header />
-      <main>{children}</main>
+      <main className="flex flex-col justify-center">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 
