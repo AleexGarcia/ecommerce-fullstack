@@ -12,7 +12,7 @@ export class Createtables1696343582698 implements MigrationInterface {
         name: "product",
         columns: [
           {
-            name: "productID",
+            name: "id",
             type: "uuid",
             isPrimary: true,
             isNullable: false,
@@ -42,7 +42,7 @@ export class Createtables1696343582698 implements MigrationInterface {
           },
           {
             name: "price",
-            type: "real",
+            type: "float4",
             isNullable: false,
           },
         ],
@@ -54,7 +54,7 @@ export class Createtables1696343582698 implements MigrationInterface {
         name: "variant",
         columns: [
           {
-            name: "variantID",
+            name: "id",
             type: "uuid",
             isPrimary: true,
             isNullable: false,
@@ -75,7 +75,7 @@ export class Createtables1696343582698 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: "productID",
+            name: "productId",
             type: "uuid",
           },
         ],
@@ -85,36 +85,9 @@ export class Createtables1696343582698 implements MigrationInterface {
     await queryRunner.createForeignKey(
       "variant",
       new TableForeignKey({
-        columnNames: ["productID"],
-        referencedColumnNames: ["productID"],
+        columnNames: ["productId"],
+        referencedColumnNames: ["id"],
         referencedTableName: "product",
-      })
-    );
-
-    await queryRunner.createTable(
-      new Table({
-        name: "size",
-        columns: [
-          {
-            name: "sizeID",
-            type: "uuid",
-            isPrimary: true,
-            isNullable: false,
-          },
-          {
-            name: "size",
-            type: "character varying",
-            isNullable: false,
-          },
-          {
-            name: "variantID",
-            type: "uuid",
-          },
-          {
-            name: "quantityID",
-            type: "uuid",
-          },
-        ],
       })
     );
 
@@ -123,7 +96,7 @@ export class Createtables1696343582698 implements MigrationInterface {
         name: "quantity",
         columns: [
           {
-            name: "quantityID",
+            name: "id",
             type: "uuid",
             isPrimary: true,
             isNullable: false,
@@ -136,11 +109,47 @@ export class Createtables1696343582698 implements MigrationInterface {
       })
     );
 
+    await queryRunner.createTable(
+      new Table({
+        name: "size",
+        columns: [
+          {
+            name: "id",
+            type: "uuid",
+            isPrimary: true,
+            isNullable: false,
+          },
+          {
+            name: "size",
+            type: "character varying",
+            isNullable: false,
+          },
+          {
+            name: "variantId",
+            type: "uuid",
+          },
+          {
+            name: "quantityId",
+            type: "uuid",
+          },
+        ],
+      })
+    );
+    
     await queryRunner.createForeignKey(
       "size",
       new TableForeignKey({
-        columnNames: ["quantityID"],
-        referencedColumnNames: ["quantityID"],
+        columnNames: ["variantId"],
+        referencedColumnNames: ["id"],
+        referencedTableName: "variant",
+      })
+    );
+
+    await queryRunner.createForeignKey(
+      "size",
+      new TableForeignKey({
+        columnNames: ["quantityId"],
+        referencedColumnNames: ["id"],
         referencedTableName: "quantity",
       })
     );
@@ -150,7 +159,7 @@ export class Createtables1696343582698 implements MigrationInterface {
         name: "user",
         columns: [
           {
-            name: "userID",
+            name: "id",
             type: "uuid",
             isPrimary: true,
             isNullable: false,
@@ -181,9 +190,10 @@ export class Createtables1696343582698 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("product");
-    await queryRunner.dropTable("variant");
     await queryRunner.dropTable("size");
     await queryRunner.dropTable("quantity");
+    await queryRunner.dropTable("variant");
+    await queryRunner.dropTable("product");
+    await queryRunner.dropTable("user");
   }
 }

@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -14,7 +15,7 @@ import Variant from "./Variant";
 @Entity('size')
 export default class Size {
   @PrimaryGeneratedColumn("uuid")
-  sizeID: string;
+  id: string;
 
   @Column()
   size: string;
@@ -22,13 +23,14 @@ export default class Size {
   @OneToOne(() => Quantity)
   @JoinColumn()
   quantity: Quantity;
-
+  
   @ManyToOne(() => Variant, variant => variant.sizes)
   variant!: Variant;
 
-  constructor(size: string, quantity: Quantity) {
+  constructor(size: string, quantity: Quantity, variant: Variant) {
     this.size = size;
     this.quantity = quantity;
-    this.sizeID = randomUUID();
+    this.variant = variant;
+    this.id = randomUUID();
   }
 }

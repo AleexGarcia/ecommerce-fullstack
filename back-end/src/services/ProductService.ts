@@ -3,6 +3,7 @@ import Quantity from "../entity/Quantity";
 import Size from "../entity/Size";
 import Variant from "../entity/Variant";
 import { Category } from "../enum/EnumCategory";
+import { IDataProduct } from "../interfaces/interfaces";
 import ProductRepository from "../repositories/ProductRepository";
 
 export default class ProductService {
@@ -11,43 +12,25 @@ export default class ProductService {
     this.productRepository = productRepository;
   }
 
-  createProduct = async (name: string , category: Category, description: string, price: number, variants: Variant[]) => {
-  
+  createProduct = async (objectData: IDataProduct) => {
+    const { category, name, description, price, variants } = objectData;
     const product = new Product(category, name, description, price);
-    const arrVarients: Variant[] = [];
+    const RP = this.productRepository.createProduct(product);
     for (const iterator of variants) {
       const { url, alt, color, sizes } = iterator;
       const variant = new Variant(color, url, alt, product);
-      const arrSizes: Size[] = [];
+      await this.productRepository.addVariantProduct(variant);
       for (const i of sizes) {
         const { quantity, size } = i;
-        arrSizes.push(new Size(size, new Quantity(quantity.value)));
+        const objectQuantity = new Quantity(quantity);
+        await this.productRepository.addVariantQuantity(objectQuantity);
+        const objectSize = new Size(size, objectQuantity, variant);
+        await this.productRepository.addVariantSize(objectSize);
       }
-      variant.sizes = arrSizes;
-      arrVarients.push(variant);
     }
-    product.variants = arrVarients;
-    return this.productRepository.createProduct(product);
+    return RP;
   };
-  // {
-  //   name:'',
-  //   category:'',
-  //   description:'',
-  //   price:'',
-  //   variants: [
-  //     {
-  //       color:""
-  //       url:""
-  //       alt:""
-  //       sizes:[
-  //         quatity:{
-  //           quantity:""
-  //         }
-  //         size:""
-  //       ]
-  //     }
-  //   ]
-  // }
+
   getInitialProducts = async () => {
     return this.productRepository.getInitialProducts();
   };
@@ -55,30 +38,14 @@ export default class ProductService {
   getProductsByCategory = async (category: Category) => {
     return this.productRepository.getProductsByCategory(category);
   };
+
   getProductById = async (id: string) => {
     return this.productRepository.getProductById(id);
   };
 
-  updateProduct = async (id: string, receiveProduct: object) => {
-    return this.productRepository.updateProduct(id, receiveProduct);
+  updateProduct = async (id: string, receiveProduct: Product) => {
+    const existingProduct = this.productRepository.getProductById(id);
+    if (!existingProduct) return null;
+    return this.productRepository.updateProduct(receiveProduct);
   };
-
-  // addVariantProduct = async (
-  //   color: string,
-  //   url: string,
-  //   alt: string,
-  //   product: Product
-  // ) => {
-  //   const variant = new VariantProduct(color, url, alt, product);
-  //   return this.productRepository.addVariantProduct(variant);
-  // };
-
-  // addVariantQuantityAndSize = async (
-  //   size: string,
-  //   quantity: number,
-  //   variant: VariantProduct
-  // ) => {
-  //   const quantityAndSize = new SizeQuantity(size, quantity, variant);
-  //   this.productRepository.addVariantQuantityAndSize(quantityAndSize);
-  // };
 }

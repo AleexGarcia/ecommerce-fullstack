@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
     username: "postgres",
     password: "123",
     database: "db_ecommerce",
-    synchronize: true,
+    synchronize: false,
     logging: false,
     entities: [Size, Product,Variant, User,Quantity],
     migrations: [Createtables1696343582698],

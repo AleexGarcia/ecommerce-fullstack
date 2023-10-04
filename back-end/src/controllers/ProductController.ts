@@ -8,9 +8,10 @@ export default class ProductController {
     this.productService = productService;
   }
   createProduct = async (request: Request, response: Response) => {
-    const { name , category, description, price, variants } = request.body;
+
+    const objectData = request.body;
     const product = await this.productService.createProduct(
-      name , category, description, price, variants
+      objectData
     );
     if (product) return response.status(201).json(product);
     return response.status(401).json({ message: "Error" });
@@ -35,6 +36,7 @@ export default class ProductController {
 
   getProductById = async (request: Request, response: Response) => {
     const id = request.params.id;
+    console.log(id);
     const product = await this.productService.getProductById(id);
     if (product) return response.status(200).json(product);
     return response.status(400).json({ message: "not found" });

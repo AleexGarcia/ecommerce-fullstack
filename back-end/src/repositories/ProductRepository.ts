@@ -1,56 +1,72 @@
-import { EntityManager } from "typeorm";
+import { EntityManager, createQueryBuilder } from "typeorm";
 import { AppDataSource } from "../data-source";
 import Product from "../entity/Product";
-import VariantProduct from "../entity/Variant";
-import SizeQuantity from "../entity/Size";
+import Quantity from "../entity/Quantity";
+import Size from "../entity/Size";
+import Variant from "../entity/Variant";
+import { Category } from "../enum/EnumCategory";
 
 export default class ProductRepository {
-    manager: EntityManager;
-    
-    constructor(manager: EntityManager = AppDataSource.manager){
-        this.manager = manager;
-    }
+  manager: EntityManager;
 
-    createProduct = async(product: Product): Promise<Product> => {
-       return this.manager.save(product);
-    }
+  constructor(manager: EntityManager = AppDataSource.manager) {
+    this.manager = manager;
+  }
 
-    getInitialProducts = async (): Promise<Array<Product>> => {
-        return this.manager.getRepository(Product)
-        .createQueryBuilder('products')
-        .limit(6)
-        .getMany()
-    }
+  createProduct = async (product: Product): Promise<Product> => {
+    return this.manager.save(product);
+  };
 
-    getProductsByCategory = async (category: string) : Promise<Array<Product>> => {
-        return this.manager.getRepository(Product)
-        .createQueryBuilder('products')
-        .where('products.category= :category',{category: category})
-        .getMany()
-    }
+  getInitialProducts = async (): Promise<Array<Product>> => {
+    return this.manager
+      .getRepository(Product)
+      .createQueryBuilder("product")
+      .limit(6)
+      .getMany();
+  };
 
-    getProductById = async (id: string): Promise<Product | null> => {
-        return this.manager.findOne(Product,{
-            where:{
-                productID: id
+  getProductsByCategory = async (category: Category): Promise<Array<Product>> => {
+    return this.manager
+      .getRepository(Product)
+      .createQueryBuilder("product")
+      .where("product.category= :category", { category: category })
+      .leftJoinAndSelect("product.variants", "variants")
+      .leftJoinAndSelect("variants.sizes", "sizes")
+      .leftJoinAndSelect("sizes.quantity", "quantity")
+      .getMany();
+  };
+
+  getProductById = async (id: string): Promise<Product | null> => {
+  
+    return this.manager
+      .getRepository(Product)
+      .createQueryBuilder("product")
+      .where("product.id = :id", { id: id })
+      .leftJoinAndSelect("product.variants", "variants")
+      .leftJoinAndSelect("variants.sizes", "sizes")
+      .leftJoinAndSelect("sizes.quantity", "quantity")
+      .getOne();
+  };
+
+  updateProduct = async (product: Product) => {
+       await this.manager.save(product);
+       for (const variant of product.variants) {
+            await this.manager.save(variant);
+            for (const size of variant.sizes) {
+                await this.manager.save(size);
+                await this.manager.save(size.quantity);
             }
-        })
-    }
-    updateProduct = async (id: string, product: object) => {
-        return this.manager
-        .createQueryBuilder()
-        .update(Product)
-        .set(product)
-        .where("id = :id",{id: id})
-        .execute()
-    }
-   
-    addVariantProduct = async (variant: VariantProduct) => {
-        return this.manager.save(variant);
-    }
-    
-    addVariantQuantityAndSize = async (quantityAndSize: SizeQuantity) => {
-        return this.manager.save(quantityAndSize);
-    }
+       }
+  };
 
+  addVariantProduct = async (variant: Variant) => {
+    return this.manager.save(variant);
+  };
+
+  addVariantQuantity = async (quantity: Quantity) => {
+    return this.manager.save(quantity);
+  };
+  addVariantSize = async (size: Size) => {
+    return this.manager.save(size);
+  };
 }

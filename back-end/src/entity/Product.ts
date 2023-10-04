@@ -6,7 +6,7 @@ import Variant from "./Variant";
 @Entity('product')
 export default class Product {
   @PrimaryGeneratedColumn('uuid')
-  productID: string;
+  id: string;
 
   @Column({ type: "enum", enum: Category })
   category: Category;
@@ -17,10 +17,10 @@ export default class Product {
   @Column()
   description: string;
 
-  @Column()
+  @Column("real")
   price: number
 
-  @OneToMany(() => Variant, (variants) => variants.product,{cascade: true})
+  @OneToMany(() => Variant, (variants) => variants.product)
   variants!: Variant[];
 
   constructor(category: Category, name: string, description: string, price: number) {
@@ -28,6 +28,6 @@ export default class Product {
     this.name = name;
     this.description = description;
     this.price = price;
-    this.productID = randomUUID();
+    this.id = randomUUID();
   }
 }

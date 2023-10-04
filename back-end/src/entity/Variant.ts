@@ -12,7 +12,7 @@ import Size from "./Size";
 @Entity('variant')
 export default class Variant{
   @PrimaryGeneratedColumn("uuid")
-  variantID: string;
+  id: string;
   @Column()
   color: string;
   @Column()
@@ -21,7 +21,8 @@ export default class Variant{
   alt: string;
   @ManyToOne(() => Product, (product) => product.variants)
   product: Product;
-  @OneToMany(() => Size, size => size.size,{cascade: true})
+
+  @OneToMany(() => Size, size => size.variant)
   sizes!: Size[];
 
   constructor(
@@ -34,6 +35,6 @@ export default class Variant{
     this.url = url;
     this.alt = alt;
     this.product = product;
-    this.variantID = randomUUID();
+    this.id = randomUUID();
   }
 }
