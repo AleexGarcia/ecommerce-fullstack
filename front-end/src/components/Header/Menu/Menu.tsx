@@ -1,7 +1,12 @@
-import { useState } from "react";
+
 import MobileMenu from "./MobileMenu";
 import { Link } from "react-router-dom";
-const Menu = () => {
+interface IMenu {
+  isActive: string | undefined;
+  setActive: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+const Menu = ({isActive, setActive}: IMenu) => {
   const menuItens = [
     {
       link: "/",
@@ -20,18 +25,18 @@ const Menu = () => {
       name: "Promoções",
     },
   ];
-  const [isActive, setActive] = useState<undefined | string>();
+
 
   return (
     <>
       <MobileMenu menuItens={menuItens} />
-      <div className="hidden sm:flex sm:gap-4 sm:items-center lg:gap-8">
+      <div className="hidden sm:flex sm:gap-2 sm:items-center lg:gap-8">
         {menuItens.map((content) => {
           return (
             <Link
               to={content.link}
               key={content.name}
-              className={` cursor-pointer hover:text-p_green  
+              className={` cursor-pointer hover:text-p_green text-sm  
               ${
                 isActive === content.name ? "text-p_green font-bold" : "text-p_white"
               }`}
