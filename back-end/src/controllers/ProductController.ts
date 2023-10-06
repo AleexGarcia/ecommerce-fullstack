@@ -8,11 +8,8 @@ export default class ProductController {
     this.productService = productService;
   }
   createProduct = async (request: Request, response: Response) => {
-
     const objectData = request.body;
-    const product = await this.productService.createProduct(
-      objectData
-    );
+    const product = await this.productService.createProduct(objectData);
     if (product) return response.status(201).json(product);
     return response.status(401).json({ message: "Error" });
   };
@@ -25,14 +22,24 @@ export default class ProductController {
 
   getProductsByCategory = async (request: Request, response: Response) => {
     const category = request.params.category;
-    const products = await this.productService.getProductsByCategory(category as Category);
+    const products = await this.productService.getProductsByCategory(
+      category as Category
+    );
 
     if (!products) return response.status(400).json({ message: "not found" });
 
     return response.status(200).json(products);
   };
 
-  getProductsByPartialName = async (request: Request, response: Response) => {};
+  getProductsByPartialName = async (request: Request, response: Response) => {
+    const partialName = request.params.partialName;
+    const products = await this.productService.getProductsByPartialName(
+      partialName
+    );
+    if (products.length === 0)
+      return response.status(400).json({ message: "Not Found" });
+    return response.status(200).json(products);
+  };
 
   getProductById = async (request: Request, response: Response) => {
     const id = request.params.id;
@@ -46,6 +53,12 @@ export default class ProductController {
     const id = request.params.id;
     const receiveProduct = request.body;
     const product = await this.productService.updateProduct(id, receiveProduct);
+    if(!product) return response.status(400).json({message: 'Not Found'})
   };
-  deleteProduct = async (request: Request, response: Response) => {};
+  deleteProduct = async (request: Request, response: Response) => {
+    const id = request.params.id;
+    const res = this.productService.deleteProduct(id);
+    if (!res) return response.status(400).json({ message: "Not Found" });
+    return response.status(204).json({ message: "No content" });
+  };
 }

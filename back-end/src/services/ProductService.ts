@@ -43,9 +43,19 @@ export default class ProductService {
     return this.productRepository.getProductById(id);
   };
 
+  getProductsByPartialName = async (partialName: string) => {
+    return this.productRepository.getProductsByPartialName(partialName);
+  };
+
   updateProduct = async (id: string, receiveProduct: Product) => {
     const existingProduct = this.productRepository.getProductById(id);
     if (!existingProduct) return null;
     return this.productRepository.updateProduct(receiveProduct);
+  };
+
+  deleteProduct = async (id: string) => {
+    const product = await this.getProductById(id);
+    if (!product) return null;
+    return await this.productRepository.deleteProduct(product);
   };
 }

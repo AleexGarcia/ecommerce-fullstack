@@ -13,7 +13,7 @@ router.post('/auth/login', userController.login);
 router.get('/products', productController.getInitialProducts);
 router.get('/products/category/:category', productController.getProductsByCategory);
 router.get('/products/id/:id',  productController.getProductById);
-router.get('/products/name/:partialName',  productController.getProductsByPartialName);
+router.get('/products/search/:partialName',  productController.getProductsByPartialName);
 
 router.post('/products', verifyAuth, productController.createProduct);
 router.put('/products/id/:id', verifyAuth, productController.updateProduct);

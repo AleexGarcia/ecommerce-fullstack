@@ -1,4 +1,4 @@
-import { EntityManager, createQueryBuilder } from "typeorm";
+import { DeleteResult, EntityManager } from "typeorm";
 import { AppDataSource } from "../data-source";
 import Product from "../entity/Product";
 import Quantity from "../entity/Quantity";
@@ -25,7 +25,9 @@ export default class ProductRepository {
       .getMany();
   };
 
-  getProductsByCategory = async (category: Category): Promise<Array<Product>> => {
+  getProductsByCategory = async (
+    category: Category
+  ): Promise<Array<Product>> => {
     return this.manager
       .getRepository(Product)
       .createQueryBuilder("product")
@@ -37,7 +39,6 @@ export default class ProductRepository {
   };
 
   getProductById = async (id: string): Promise<Product | null> => {
-  
     return this.manager
       .getRepository(Product)
       .createQueryBuilder("product")
@@ -48,25 +49,53 @@ export default class ProductRepository {
       .getOne();
   };
 
-  updateProduct = async (product: Product) => {
-       await this.manager.save(product);
-       for (const variant of product.variants) {
-            await this.manager.save(variant);
-            for (const size of variant.sizes) {
-                await this.manager.save(size);
-                await this.manager.save(size.quantity);
-            }
-       }
+  getProductsByPartialName = async (
+    partialName: string
+  ): Promise<Product[]> => {
+    return this.manager
+      .getRepository(Product)
+      .createQueryBuilder("product")
+      .where("product.name ILIKE = :partialName", {
+        partialName: `%${partialName}%`,
+      })
+      .getMany();
   };
 
-  addVariantProduct = async (variant: Variant) => {
+  updateProduct = async (product: Product): Promise<Product> => {
+    await this.manager.save(product);
+    for (const variant of product.variants) {
+      await this.manager.save(variant);
+      for (const size of variant.sizes) {
+        await this.manager.save(size);
+        await this.manager.save(size.quantity);
+      }
+    }
+    return product;
+  };
+
+  deleteProduct = async (product: Product):Promise<DeleteResult> => {
+    
+    for (const variant of product.variants) {
+      for (const size of variant.sizes) {
+        await this.manager.delete(Size,{id: size.id})
+        await this.manager.delete(Quantity,{id: size.quantity.id});
+      }
+      await this.manager.delete(Variant,{id: variant.id});
+    }
+    return await this.manager.delete(Product,{id: product.id});
+    
+  };
+
+  addVariantProduct = async (variant: Variant): Promise<Variant> => {
     return this.manager.save(variant);
   };
 
-  addVariantQuantity = async (quantity: Quantity) => {
+  addVariantQuantity = async (quantity: Quantity): Promise<Quantity> => {
     return this.manager.save(quantity);
   };
-  addVariantSize = async (size: Size) => {
+  addVariantSize = async (size: Size): Promise<Size> => {
     return this.manager.save(size);
   };
+
+
 }
