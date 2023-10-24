@@ -12,10 +12,21 @@ const Header = () => {
         <div className="sm:w-[25%]">
           <img src={logo} alt="Logo da meteora" />
         </div>
+        <Link
+          onClick={() => setActive("login")}
+          className="button sm:hidden"
+          to={"/auth/signin"}
+        >
+          Login
+        </Link>
         <Menu isActive={isActive} setActive={setActive} />
       </div>
       <SearchBox />
-      <Link onClick={() => setActive('login')} className="button hidden sm:block" to={"/auth/signin"}>
+      <Link
+        onClick={() => setActive("login")}
+        className="button hidden sm:block"
+        to={"/auth/signin"}
+      >
         Login
       </Link>
     </header>
